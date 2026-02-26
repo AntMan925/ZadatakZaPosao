@@ -19,6 +19,7 @@ Pokretanje aplikacije - Klonirati repozitoriji
                       - Pokretanje aplikacije 
                       - Testiranje pomoci Swaggera/Postmana
 
+Unutar "ZadatakZaPosao/Project.Service/Data/ApplicationDbContext.cs" je seedano nekoliko kategorija i proizvoda.
 
 Prilikom izrade WEB API-a su koristeni sljedeci alati - Visual Studio 2022
                                                       - Entity Framework Core (9.0.13)
