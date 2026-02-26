@@ -57,7 +57,7 @@ namespace Project.Service.Services
 
             var totalCount = await query.CountAsync();
 
-            // PAGING (u bazi!)
+            // PAGING 
             var items = await query
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
@@ -76,13 +76,7 @@ namespace Project.Service.Services
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
         }
-
-        //public async Task<bool> UpdateAsync(Product product)
-        //{
-        //    _context.Products.Update(product);
-        //    return await _context.SaveChangesAsync() > 0;
-        //}
-
+                
         public async Task<bool> UpdateAsync(int id, Product updatedProduct)
         {
             var existing = await _context.Products.FindAsync(id);
@@ -109,10 +103,6 @@ namespace Project.Service.Services
             await _context.SaveChangesAsync();
             return true;
         }
-
-        public Task<bool> UpdateAsync(Product product)
-        {
-            throw new NotImplementedException();
-        }
+               
     }
 }

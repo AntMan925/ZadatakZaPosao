@@ -90,7 +90,7 @@ namespace Project.WebAPI.Controllers
 
             await _productService.CreateAsync(product);
             return Ok();
-        } //trycatch napraviti
+        } //trycatch trebam napraviti napraviti
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, UpdateProductDto dto)

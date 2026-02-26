@@ -27,6 +27,108 @@ namespace Project.Service.Data
                 .HasForeignKey(p => p.CategoryId);
 
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ProductCategory>().HasData(
+            new ProductCategory
+            {
+                Id = 1,
+                Name = "Elektronika",
+                Description = "Elektronicki uredjaji"
+            },
+            new ProductCategory
+            {
+                Id = 2,
+                Name = "Odjeća",
+                Description = "Muska i zenska roba"
+            },
+            new ProductCategory
+            {
+                Id = 3,
+                Name = "Prehrana",
+                Description = "Prehrambeni proizvodi"
+            },
+            new ProductCategory
+            {
+                Id = 4,
+                Name = "Pet's",
+                Description = "Stvari za kucne ljubimce"
+            }
+            );
+
+            modelBuilder.Entity<Product>().HasData(
+                new Product
+                {
+                    Id = 1,
+                    Name = "Laptop",
+                    Price = 1200,
+                    CategoryId = 1,
+                    Stock = 10,
+                    IsActive = true
+                },
+                new Product
+                {
+                    Id = 2,
+                    Name = "Stolno racunalo",
+                    Price = 900,
+                    CategoryId = 1,
+                    Stock = 30,
+                    IsActive = true
+                },
+                new Product
+                {
+                    Id = 3,
+                    Name = "Monitor",
+                    Price = 350,
+                    CategoryId = 1,
+                    Stock = 50,
+                    IsActive = false
+                },
+                new Product
+                {
+                    Id = 4,
+                    Name = "Majica",
+                    Price = 25,
+                    CategoryId = 2,
+                    Stock = 100,
+                    IsActive = true
+                },
+                new Product
+                {
+                    Id = 5,
+                    Name = "Hlace",
+                    Price = 30,
+                    CategoryId = 2,
+                    Stock = 5012,
+                    IsActive = true
+                },
+                new Product
+                {
+                    Id = 6,
+                    Name = "Zelena salata",
+                    Price = 0.99M,
+                    CategoryId = 3,
+                    Stock = 10000,
+                    IsActive = true
+                },
+                new Product
+                {
+                    Id = 7,
+                    Name = "Kruh",
+                    Price = 1.30M,
+                    CategoryId = 3,
+                    Stock = 535,
+                    IsActive = true
+                },
+                new Product
+                {
+                    Id = 8,
+                    Name = "Loptica",
+                    Price = 2,
+                    CategoryId = 4,
+                    Stock = 5,
+                    IsActive = true
+                }
+                );
         }
     }
 }

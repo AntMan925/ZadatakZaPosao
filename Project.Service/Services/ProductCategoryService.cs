@@ -24,11 +24,7 @@ namespace Project.Service.Services
             _context.ProductCategories.Add(category);
             await _context.SaveChangesAsync();
         }
-        //public async Task<IEnumerable<ProductCategory>> GetAllAsync()
-        //{
-        //    return await _context.ProductCategories.ToListAsync();
-        //}
-
+        
         public async Task<(IEnumerable<ProductCategory> Items, int TotalCount)> GetAllAsync(
             string? search,
             string? sortBy,
