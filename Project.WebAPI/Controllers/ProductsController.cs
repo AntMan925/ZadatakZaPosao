@@ -27,33 +27,42 @@ namespace Project.WebAPI.Controllers
             int page = 1,
             int pageSize = 10)
         {
-            var (items, totalCount) = await _productService.GetAllAsync(
-                categoryId,
-                minPrice,
-                maxPrice,
-                isActive,
-                sortBy,
-                page,
-                pageSize);
-
-            var result = items.Select(p => new ProductDto
+            try
             {
-                Id = p.Id,
-                Name = p.Name,
-                Price = p.Price,
-                Stock = p.Stock,
-                IsActive = p.IsActive,
-                CategoryId = p.CategoryId,
-                CreatedAt = p.CreatedAt
-            });
 
-            return Ok(new
+                var (items, totalCount) = await _productService.GetAllAsync(
+                    categoryId,
+                    minPrice,
+                    maxPrice,
+                    isActive,
+                    sortBy,
+                    page,
+                    pageSize);
+
+                var result = items.Select(p => new ProductDto
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Price = p.Price,
+                    Stock = p.Stock,
+                    IsActive = p.IsActive,
+                    CategoryId = p.CategoryId,
+                    CreatedAt = p.CreatedAt
+                });
+
+                return Ok(new
+                {
+                    TotalCount = totalCount,
+                    Page = page,
+                    PageSize = pageSize,
+                    Data = result
+                });
+            }
+            catch (Exception e)
             {
-                TotalCount = totalCount,
-                Page = page,
-                PageSize = pageSize,
-                Data = result
-            });
+                return Problem(e.Message);
+                //return Problem("The parameters were not correct");
+            }
         }
 
         [HttpGet("{id}")]

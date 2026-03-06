@@ -19,10 +19,10 @@ namespace Project.Service.Services
             _context = context;
         }
 
-        public async Task CreateAsync(ProductCategory category)
+        public Task CreateAsync(ProductCategory category)
         {
             _context.ProductCategories.Add(category);
-            await _context.SaveChangesAsync();
+             return _context.SaveChangesAsync();
         }
         
         public async Task<(IEnumerable<ProductCategory> Items, int TotalCount)> GetAllAsync(
@@ -31,7 +31,7 @@ namespace Project.Service.Services
             int page,
             int pageSize)
         {
-            var query = _context.ProductCategories.AsQueryable();
+            var query = _context.ProductCategories.AsNoTracking().Include(x => x.Products).AsQueryable();
 
             // SEARCH (basic filtering)
             if (!string.IsNullOrWhiteSpace(search))
@@ -55,9 +55,9 @@ namespace Project.Service.Services
             return (items, totalCount);
         }
 
-        public async Task<ProductCategory?> GetByIdAsync(int id)
+        public Task<ProductCategory?> GetByIdAsync(int id)
         {
-            return await _context.ProductCategories.FindAsync(id);
+            return _context.ProductCategories.AsNoTracking().Include(x => x.Products).SingleOrDefaultAsync(y => y.Id == id);
         }
 
         public async Task<bool> UpdateAsync(int id, ProductCategory updated)

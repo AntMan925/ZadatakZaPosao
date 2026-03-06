@@ -63,7 +63,8 @@ namespace Project.Service.Data
                     Price = 1200,
                     CategoryId = 1,
                     Stock = 10,
-                    IsActive = true
+                    IsActive = true,
+                    CreatedAt = new DateTime(2026, 3, 6)
                 },
                 new Product
                 {
@@ -72,7 +73,8 @@ namespace Project.Service.Data
                     Price = 900,
                     CategoryId = 1,
                     Stock = 30,
-                    IsActive = true
+                    IsActive = true,
+                    CreatedAt = new DateTime(2026, 3, 6)
                 },
                 new Product
                 {
@@ -81,7 +83,8 @@ namespace Project.Service.Data
                     Price = 350,
                     CategoryId = 1,
                     Stock = 50,
-                    IsActive = false
+                    IsActive = false,
+                    CreatedAt = new DateTime(2026, 3, 6)
                 },
                 new Product
                 {
@@ -90,7 +93,8 @@ namespace Project.Service.Data
                     Price = 25,
                     CategoryId = 2,
                     Stock = 100,
-                    IsActive = true
+                    IsActive = true,
+                    CreatedAt = new DateTime(2026, 3, 6)
                 },
                 new Product
                 {
@@ -99,7 +103,8 @@ namespace Project.Service.Data
                     Price = 30,
                     CategoryId = 2,
                     Stock = 5012,
-                    IsActive = true
+                    IsActive = true,
+                    CreatedAt = new DateTime(2026, 3, 6)
                 },
                 new Product
                 {
@@ -108,7 +113,8 @@ namespace Project.Service.Data
                     Price = 0.99M,
                     CategoryId = 3,
                     Stock = 10000,
-                    IsActive = true
+                    IsActive = true,
+                    CreatedAt = new DateTime(2026, 3, 6)
                 },
                 new Product
                 {
@@ -117,7 +123,8 @@ namespace Project.Service.Data
                     Price = 1.30M,
                     CategoryId = 3,
                     Stock = 535,
-                    IsActive = true
+                    IsActive = true,
+                    CreatedAt = new DateTime(2026, 3, 6)
                 },
                 new Product
                 {
@@ -126,7 +133,8 @@ namespace Project.Service.Data
                     Price = 2,
                     CategoryId = 4,
                     Stock = 5,
-                    IsActive = true
+                    IsActive = true,
+                    CreatedAt = new DateTime(2026, 3, 6)
                 }
                 );
         }

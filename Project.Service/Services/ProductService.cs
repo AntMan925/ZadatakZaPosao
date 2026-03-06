@@ -28,7 +28,7 @@ namespace Project.Service.Services
             int page,
             int pageSize)
         {
-            var query = _context.Products.AsQueryable();
+            var query = _context.Products.AsNoTracking().Include(x => x.Category).AsQueryable();
 
             // FILTERING
             if (categoryId.HasValue)
@@ -53,6 +53,7 @@ namespace Project.Service.Services
                 "createdat" => query.OrderBy(p => p.CreatedAt),
                 "createdat_desc" => query.OrderByDescending(p => p.CreatedAt),
                 _ => query.OrderBy(p => p.Id)
+                
             };
 
             var totalCount = await query.CountAsync();
@@ -63,18 +64,28 @@ namespace Project.Service.Services
                 .Take(pageSize)
                 .ToListAsync();
 
+            if (items == null || !items.Any())
+                throw new Exception("No elements in the list");
+
             return (items, totalCount);
         }
 
-        public async Task<Product?> GetByIdAsync(int id)
+        public Task<Product?> GetByIdAsync(int id)
         {
-            return await _context.Products.FindAsync(id);
+            var test = _context.Products.AsNoTracking().Include(x => x.Category).SingleOrDefaultAsync(y => y.Id == id);
+            if (test == null)
+                throw new Exception("ID ne postoji");
+
+            //if (_context.Products.Any(x => x.Id == id))
+            //    throw new Exception("Id ne postoji");
+
+            return test;
         }
 
-        public async Task CreateAsync(Product product)
+        public Task CreateAsync(Product product)
         {
             _context.Products.Add(product);
-            await _context.SaveChangesAsync();
+            return _context.SaveChangesAsync();
         }
                 
         public async Task<bool> UpdateAsync(int id, Product updatedProduct)
@@ -88,7 +99,7 @@ namespace Project.Service.Services
             existing.Stock = updatedProduct.Stock;
             existing.IsActive = updatedProduct.IsActive;
             existing.CategoryId = updatedProduct.CategoryId;
-
+            
             await _context.SaveChangesAsync();
             return true;
         }
