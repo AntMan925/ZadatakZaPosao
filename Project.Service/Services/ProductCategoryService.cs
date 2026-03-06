@@ -33,7 +33,7 @@ namespace Project.Service.Services
         {
             var query = _context.ProductCategories.AsNoTracking().Include(x => x.Products).AsQueryable();
 
-            // SEARCH (basic filtering)
+            // SEARCH 
             if (!string.IsNullOrWhiteSpace(search))
                 query = query.Where(c => c.Name.Contains(search));
 
