@@ -30,7 +30,7 @@ namespace Project.Service.Services
         {
             var query = _context.Products.AsNoTracking().Include(x => x.Category).AsQueryable();
 
-            // FILTERING
+            
             if (categoryId.HasValue)
                 query = query.Where(p => p.CategoryId == categoryId.Value);
 
@@ -43,7 +43,7 @@ namespace Project.Service.Services
             if (isActive.HasValue)
                 query = query.Where(p => p.IsActive == isActive.Value);
 
-            // SORTING
+            
             query = sortBy?.ToLower() switch
             {
                 "price" => query.OrderBy(p => p.Price),
@@ -64,22 +64,13 @@ namespace Project.Service.Services
                 .Take(pageSize)
                 .ToListAsync();
 
-            if (items == null || !items.Any())
-                throw new Exception("No elements in the list");
-
             return (items, totalCount);
         }
 
-        public Task<Product?> GetByIdAsync(int id)
+        public async Task<Product?> GetByIdAsync(int id)
         {
-            var test = _context.Products.AsNoTracking().Include(x => x.Category).SingleOrDefaultAsync(y => y.Id == id);
-            if (test == null)
-                throw new Exception("ID ne postoji");
-
-            //if (_context.Products.Any(x => x.Id == id))
-            //    throw new Exception("Id ne postoji");
-
-            return test;
+            return await _context.Products.AsNoTracking().Include(x => x.Category).SingleOrDefaultAsync(y => y.Id == id);
+            
         }
 
         public Task CreateAsync(Product product)

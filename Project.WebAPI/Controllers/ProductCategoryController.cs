@@ -24,84 +24,119 @@ namespace Project.WebAPI.Controllers
             int page = 1,
             int pageSize = 10)
         {
-            var (items, totalCount) = await _service.GetAllAsync(
-                search, 
-                sortBy, 
-                page, 
+            try
+            {
+                var (items, totalCount) = await _service.GetAllAsync(
+                search,
+                sortBy,
+                page,
                 pageSize);
 
-            var result = items.Select(c => new ProductCategoryDto
-            {
-                Id = c.Id,
-                Name = c.Name,
-                Description = c.Description
-            });
+                var result = items.Select(c => new ProductCategoryDto
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    Description = c.Description
+                });
 
-            return Ok(new
+                return Ok(new
+                {
+                    TotalCount = totalCount,
+                    Page = page,
+                    PageSize = pageSize,
+                    Data = result
+                });
+            }
+            catch (Exception)
             {
-                TotalCount = totalCount,
-                Page = page,
-                PageSize = pageSize,
-                Data = result
-            });
+                return Problem("An unexpected error occured while retriving the products");
+            }
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var category = await _service.GetByIdAsync(id);
-
-            if (category == null)
-                return NotFound();
-
-            return Ok(new ProductCategoryDto
+            try
             {
-                Id = category.Id,
-                Name = category.Name,
-                Description = category.Description
-            });
+                var category = await _service.GetByIdAsync(id);
+
+                if (category == null)
+                    return NotFound("There is not a category with the given Id");
+
+                return Ok(new ProductCategoryDto
+                {
+                    Id = category.Id,
+                    Name = category.Name,
+                    Description = category.Description
+                });
+            }
+            catch (Exception)
+            {
+                return Problem("An unexpected error occured while retriving the product");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateProductCategoryDto dto)
         {
-            var category = new ProductCategory
+            try
             {
-                Name = dto.Name,
-                Description = dto.Description
-            };
+                var category = new ProductCategory
+                {
+                    Name = dto.Name,
+                    Description = dto.Description
+                };
 
-            await _service.CreateAsync(category);
+                await _service.CreateAsync(category);
 
-            return Ok();
+                return Ok("The Category has been created!");
+            }
+            catch (Exception)
+            {
+                return Problem("An unexpected error occured while creating the product");
+            }
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, UpdateProductCategoryDto dto)
         {
-            var category = new ProductCategory
+            try
             {
-                Name = dto.Name,
-                Description = dto.Description
-            };
+                var category = new ProductCategory
+                {
+                    Name = dto.Name,
+                    Description = dto.Description
+                };
 
-            var success = await _service.UpdateAsync(id, category);
+                var success = await _service.UpdateAsync(id, category);
 
-            if (!success)
-                return NotFound();
+                if (!success)
+                    return NotFound("There is not a category with the given Id");
 
-            return Ok();
+                return Ok("The Category has been updated!");
+            }
+            catch (Exception)
+            {
+                return Problem("An unexpected error occured while updating the product");
+            }
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var success = await _service.DeleteAsync(id);
+            try
+            {
+                var success = await _service.DeleteAsync(id);
 
-            if (!success)
-                return NotFound();
-                
-            return Ok();
+                if (!success)
+                    return NotFound("There is not a category with the given Id");
+
+                return Ok("The Category has been deleted!");
+            }
+            catch (Exception)
+            {
+                return Problem("An unexpected error occured while deleting the product");
+            }
         }
     }
 }

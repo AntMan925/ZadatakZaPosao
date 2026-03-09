@@ -33,11 +33,11 @@ namespace Project.Service.Services
         {
             var query = _context.ProductCategories.AsNoTracking().Include(x => x.Products).AsQueryable();
 
-            // SEARCH 
+            
             if (!string.IsNullOrWhiteSpace(search))
                 query = query.Where(c => c.Name.Contains(search));
 
-            // SORTING
+            
             query = sortBy?.ToLower() switch
             {
                 "name" => query.OrderBy(c => c.Name),
