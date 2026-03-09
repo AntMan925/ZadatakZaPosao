@@ -21,11 +21,16 @@ Pokretanje aplikacije - Klonirati repozitoriji
 
 Unutar "ZadatakZaPosao/Project.Service/Data/ApplicationDbContext.cs" je seedano nekoliko kategorija i proizvoda.
 
+
 Prilikom izrade WEB API-a su koristeni sljedeci alati - Visual Studio 2022 
 													  - Entity Framework Core (9.0.13) 
 													  - SQL SMS 20.2 
 													  - Swagger
 
 
-
-
+2. Verzija
+	Popravljena je greska sa seedanjem podataka prilikom migracije. 
+	Jednostavan exception handling je odradjen pomoci try-catch blokova 
+	Include() je proucen i dodan 
+	AsNotracking() je takodjer proucen i dodan gdje je potrebno
+	Async/await je pregledan te uklonjen sa odradjenih mjesta gdje nije bio potreban
